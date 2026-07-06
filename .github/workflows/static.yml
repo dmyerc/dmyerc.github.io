@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Build Quartz Site
 
 on:
   # Runs on pushes targeting the default branch
@@ -22,6 +22,22 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Build
+        uses: konstfish/quartz-build-action@v7
+        with:
+          # specify source folder
+          source: notes
+          # page title to be displayed in the browser
+          page_title: "Quartz"
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
   # Single deploy job since we're just deploying
   deploy:
     environment:
@@ -41,26 +57,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
-      - name: Build Quartz for GitHub Pages
-        # You may pin to the exact commit or the version.
-        # uses: konstfish/quartz-build-action@f15402f8aff68dd71509a6ef889c81fbaee531f5
-        uses: konstfish/quartz-build-action@v6
-        with:
-          # The directory to build from
-          source: notes
-          # The directory to write output into
-          destination: # optional, default is ./_site
-          # Title of resulting Quartz Page
-          page_title: # optional, default is Quartz
-          # Base URL (Required when setting icon or banner)
-          page_base_url: # optional, default is example.com
-          # Path to custom Quartz config file
-          quartz_config: # optional
-          # Path to custom Quartz layout file
-          quartz_layout: # optional
-          # Path to custom Quartz Page icon (png)
-          quartz_icon: # optional
-          # Path to custom Quartz Page banner (png)
-          quartz_banner: # optional
-          # Path to custom Quartz Page css
-          quartz_custom_css: # optional
