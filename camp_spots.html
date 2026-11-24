@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>domslist — camping</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Top Navigation */
+        .top-bar {
+            background-color: #eee;
+            border-bottom: 1px solid #ccc;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            color: #551a8b;
+            text-align: center;
+            padding: 2px 5px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 13px;
+            text-decoration: none;
+        }
+
+        /* Main Container */
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .half-screen-container {
+            width: 30%;
+            padding: 20px;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+        }
+
+        .right-panel {
+            width: 70%;
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid #ccc;
+        }
+
+        .right-panel.empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        /* Navigation Links */
+        .thread-nav {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .nav-link {
+            color: blue;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Pagination */
+        .thread-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .link-block {
+            color: blue;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .link-block:hover {
+            text-decoration: underline;
+        }
+
+        .thread-index {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Thread List */
+        .threads {
+            margin: 20px 0;
+        }
+
+        .thread {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+        }
+
+        .thread-header {
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .area {
+            color: #999;
+            margin-right: 10px;
+            user-select: none;
+        }
+
+        .toggle-button {
+            background: none;
+            border: none;
+            color: blue;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+            font-size: 14px;
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .toggle-button:hover {
+            text-decoration: underline;
+        }
+
+        .entry-date {
+            color: #999;
+            font-size: 12px;
+            white-space: nowrap;
+            margin-left: auto;
+        }
+
+        .dropdown {
+            display: none;
+            padding: 0;
+        }
+
+        .dropdown.active {
+            display: block;
+        }
+
+        .dropdown-content {
+            padding: 0;
+        }
+
+        .dropdown img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .dropdown p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .dropdown b {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .dropdown ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .dropdown li {
+            margin-bottom: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .half-screen-container {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ccc;
+            }
+
+            .right-panel {
+                width: 100%;
+                border-left: none;
+            }
+
+            .thread-page {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <div class="top-bar">
+        <a class="logo" href="https://dmyerc.github.io">DL</a>
+        <div>about</div>
+        <div>&gt; domslist</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+    <div class="half-screen-container">
+        <!-- Top Navigation Links -->
+        <div class="thread-nav">
+            <a class="nav-link" href="#">compose new thread</a>
+            <a class="nav-link" href="#">check for replies</a>
+        </div>
+
+        <!-- Pagination Top -->
+        <div class="thread-page">
+            <a class="link-block" href="#">&lt;&lt; newest</a>
+            <a class="link-block" href="#">&lt; newer</a>
+            <div class="thread-index">threads 100 - 0</div>
+            <a class="link-block" href="#">older &gt;</a>
+            <a class="link-block" href="#">oldest &gt;</a>
+        </div>
+
+        <!-- Thread List -->
+        <div class="threads">
+            <!-- Thread 1 -->
+            <div class="thread">
+                <div class="thread-header">
+                    <div class="area">---</div>
+                    <button class="toggle-button">cle elum copper mine</button>
+                    <div class="entry-date">2025-11-08</div>
+                </div>
+                <div class="dropdown">
+                    <img src="photos/mine1.jpg" width="300" height="400" alt="Cle Elum Copper Mine 1">
+                    <img src="photos/mine2.jpg" width="300" height="400" alt="Cle Elum Copper Mine 2">
+                    <p>
+                        <b>Coords: 47.464101, -121.047669</b>
+                        <b>Pros:</b>
+                        <ul>
+                            <li>Cliff Jumping/Swimming</li>
+                            <li>Good Views</li>
+                            <li>Usually unoccupied</li>
+                            <li>Next to busy & dusty road  D: </li>
+                            <li>Fire ban almost always active</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Thread 1 -->
+            <div class="thread">
+                <div class="thread-header">
+                    <div class="area">---</div>
+                    <button class="toggle-button">kachess 1</button>
+                    <div class="entry-date">2026-08-0</div>
+                </div>
+                <div class="dropdown">
+                    <img src="photos/kachess1.jpg" width="300" height="400" alt="Kachess1 Photo1">
+                    <img src="photos/kachess1-1.jpg" width="400" height="300" alt="Kachess1 Photo2">
+                    <p>
+                        <b>Coords: 47.330132, -121.232228</b>
+                        <b>Pros:</b>
+                        <ul>
+                            <li>Swimming</li>
+                            <li>20 min walk from car</li>
+                            <li>Good Views</li>
+                            <li>Usually unoccupied</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Thread 1 -->
+            <div class="thread">
+                <div class="thread-header">
+                    <div class="area">---</div>
+                    <button class="toggle-button">oly bike</button>
+                    <div class="entry-date">2026-08-0</div>
+                </div>
+                <div class="dropdown">
+                    <img src="photos/brcreek1.jpg" width="400" height="300" alt="Brown Creek 1">
+                    <p>
+                        <b>Coords: 47.418269, -123.329499</b>
+                        <b>Pros:</b>
+                        <ul>
+                            <li>Swimming</li>
+                            <li>Good camp spot olympic overnight bikepack</li>
+                            <li>Next to to trailhead bathroom</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Thread 2 -->
+            <div class="thread">
+                <div class="thread-header">
+                    <div class="area">---</div>
+                    <button class="toggle-button">Chocwich</button>
+                    <div class="entry-date">2025-11-08 12:00</div>
+                </div>
+                <div class="dropdown">
+                    <p>
+                        <b>Coords: 48.073532, -121.399071</b>
+                        <ul>
+                            <li>Swimming</li>
+                            <li>Check if mountain loop highway open</li>
+                            <li>Ranger maintained bathroom nearby</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Thread 3 -->
+            <div class="thread">
+                <div class="thread-header">
+                    <div class="area">---</div>
+                    <button class="toggle-button">GP1</button>
+                    <div class="entry-date">2025-11-08 12:00</div>
+                </div>
+                <div class="dropdown">
+                    <img src="photos/GP1.jpg" width="300" height="400" alt="GP1 1">
+                    <img src="photos/GP2.jpg" width="400" height="300" alt="GP1 2">
+                    <p>
+                        <b>Coords: 46.337925, -121.710515</b>
+                        <ul>
+                            <li>Cliff Jumping</li>
+                            <li>Secluded</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination Bottom -->
+        <div class="thread-page">
+            <a class="link-block" href="#">&lt;&lt; newest</a>
+            <a class="link-block" href="#">&lt; newer</a>
+            <div class="thread-index">threads 100 - 0</div>
+            <a class="link-block" href="#">older &gt;</a>
+            <a class="link-block" href="#">oldest &gt;</a>
+        </div>
+
+        <!-- Bottom Navigation Links -->
+        <div class="thread-nav">
+            <a class="nav-link" href="#">compose new thread</a>
+            <a class="nav-link" href="#">check for replies</a>
+        </div>
+    </div>
+
+    <!-- Right Panel for Expanded Entries -->
+    <div class="right-panel empty" id="rightPanel">
+        <div>select an entry</div>
+    </div>
+    </div>
+
+    <script>
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+        const rightPanel = document.getElementById('rightPanel');
+
+        toggleButtons.forEach(toggleButton => {
+            toggleButton.addEventListener('click', () => {
+                const dropdown = toggleButton.closest('.thread-header').nextElementSibling;
+                
+                if (dropdown && dropdown.classList.contains('dropdown')) {
+                    // Get the dropdown content
+                    const content = dropdown.innerHTML;
+                    
+                    // Update right panel
+                    rightPanel.classList.remove('empty');
+                    rightPanel.innerHTML = content;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
